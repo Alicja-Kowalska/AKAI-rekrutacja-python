@@ -1,7 +1,21 @@
-# coding=utf-8
+import operator
 
-# input: array with multiple strings
-# expected output: rank of the 3 most often repeated words in given set of strings and number of times they occured, case insensitive
+def word_rank(string):
+    words = []
+    rank = {}
+    for line in string:
+        sentence = line.split()
+        for word in sentence:
+            if word.isalpha():
+                words.append(word.lower())
+
+    for word in words:
+        if word in rank:
+            rank[word] += 1
+        else:
+            rank[word] = 1
+
+    return sorted(rank.items(), reverse=True, key=operator.itemgetter(1))
 
 sentences = [
     'Taki mamy klimat',
@@ -22,10 +36,9 @@ sentences = [
     'Nie powinno sprawić żadnego problemu, bo Google jest dozwolony',
 ]
 
-# Example result:
-# 1. "mam" - 12
-# 2. "tak" - 5
-# 3. "z" - 2
-
-
-# Good luck! You can write all the code in this file.
+list = word_rank(sentences)
+for i in range(3):
+    for j in range(len(list)):
+        if list[j][1] == list[i][1]:
+            print("Top", i + 1, ":", list[j][0], "\nLiczba wystąpień:", list[j][1])
+    del list[j]
