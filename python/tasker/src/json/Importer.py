@@ -9,6 +9,7 @@ class Importer:
     def read_tasks(self):
         with open("taski.json", "r") as data:
             content = json.load(data)
+        data.close()
         return content
         pass
 
